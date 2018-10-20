@@ -1,5 +1,12 @@
 package maps.gr02_20182.compumovil.udea.edu.co;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -9,11 +16,16 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private Marker marcador;
+    double latitud = 6.25184;
+    double longitud = -75.56359;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,32 +38,100 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         // Add a marker in Sydney and move the camera
         LatLng caucasia = new LatLng(7.98654, -75.19349);
         mMap.addMarker(new MarkerOptions().position(caucasia).title("RestMobil Caucasia"));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(caucasia, 7));
 
-        //Icono personalizado de mapas dos marcadores
-        LatLng medellin = new LatLng(6.25184, -75.56359);
-        mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_restaurante_foreground)).anchor(0.0f, 1.0f).position(medellin).title("RestMobil Medellin"));
+
+        myMarcador(latitud, longitud);
+
+        myUbicacion();
+
 
         //Tipos de Mapas
-        //mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        //mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        //mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
     }
+
+    private void myMarcador(double latitud, double longitud) {
+        //Icono personalizado de mapas dos marcadores
+        LatLng medellin = new LatLng(latitud, longitud);
+        mMap.addMarker(new MarkerOptions()
+                .position(medellin)
+                .title("RestMobil Medellin")
+                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_restaurante_foreground)).anchor(0.0f, 1.0f));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(medellin, 7));
+
+    }
+
+    private void myHouse(double latitud, double longitud) {
+        LatLng ubicacion = new LatLng(latitud, longitud);
+        mMap.addMarker(new MarkerOptions()
+                .position(ubicacion)
+                .title("Aqui estoy")
+                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_ic_person_background)).anchor(0.0f, 1.0f));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ubicacion, 7));
+    }
+
+    private void myUpdateLocalizacion(Location location) {
+        if(location !=null)
+        {
+            latitud = location.getLatitude();
+            longitud = location.getLongitude();
+            myHouse(latitud, longitud);
+        }
+    }
+
+    LocationListener locationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location location) {
+            myUpdateLocalizacion(location);
+        }
+
+        @Override
+        public void onStatusChanged(String s, int i, Bundle bundle) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String s) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String s) {
+
+        }
+    };
+
+    private void myUbicacion() {
+
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                 return;
+        }
+        LocationManager geolocalitation = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Location location = geolocalitation.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        //Location location = geolocalitation.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        myUpdateLocalizacion(location);
+        //geolocalitation.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,10000,0,locationListener);
+        geolocalitation.requestLocationUpdates(LocationManager.GPS_PROVIDER,15000,0,locationListener);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
 }
