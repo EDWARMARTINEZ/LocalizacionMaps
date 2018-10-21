@@ -51,17 +51,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(caucasia, 7));
 
         if(marcadorIr == 0){
-            marcadorCaucasia(7.98654, -75.19349);
+            geolocalizar();
         }else  if(marcadorIr == 1){
             marcadorCaucasia(7.98654, -75.19349);
         }else  if(marcadorIr == 2){
             marcadorMedellin(latitud, longitud);
         }else if(marcadorIr == 3){
-            myUbicacion();
+            geolocalizar();
         }else  if(marcadorIr == 4){
             marcadorCaucasia(7.98654, -75.19349);
             marcadorMedellin(latitud, longitud);
-            myUbicacion();
+            geolocalizar();
         }
 
 
@@ -91,6 +91,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.addMarker(new MarkerOptions()
                 .position(medellin)
                 .title("RestMobil Medellin")
+                .snippet("Restaurante Parrilla")
                 .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_restaurante_foreground)).anchor(0.0f, 1.0f));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(medellin, 7));
 
@@ -136,7 +137,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     };
 
-    private void myUbicacion() {
+    private void geolocalizar() {
 
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                  return;
