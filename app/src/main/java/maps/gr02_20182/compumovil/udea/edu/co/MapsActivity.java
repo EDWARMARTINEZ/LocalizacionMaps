@@ -164,24 +164,25 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         int id = item.getItemId();
         if (id == R.id.nav_caucasia) {
             marcadorIr = 1;
-            openRefrescar();
+            refrescar();
         }else if (id == R.id.nav_medellin) {
             marcadorIr = 2;
-            openRefrescar();
+            refrescar();
         } else if (id == R.id.nav_house) {
             marcadorIr = 3;
-            openRefrescar();
+            refrescar();
         } else if (id == R.id.nav_marcadores) {
             marcadorIr = 4;
-            openRefrescar();
+            refrescar();
+        } else if (id == R.id.nav_close) {
+            this.finish();
         }
         return super.onOptionsItemSelected(item);
     }
 
 
-    private void openRefrescar() {
-        Intent miIntent = new Intent(this, MapsActivity.class);
-        startActivity(miIntent);
+    private void refrescar() {
+        recreate();
     }
 
 

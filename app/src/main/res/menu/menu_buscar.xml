@@ -24,4 +24,11 @@
         </menu>
     </item>
 
+    <item
+        android:id="@+id/nav_close"
+        android:orderInCategory="100"
+        android:title="Salir"
+        app:showAsAction="never" />
+
+
 </menu>
