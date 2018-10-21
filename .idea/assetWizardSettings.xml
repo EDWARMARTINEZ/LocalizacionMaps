@@ -47,7 +47,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/home/edwar/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/maps/ic_directions_walk_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/home/edwar/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/maps/ic_add_location_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -57,9 +57,10 @@
                                   </option>
                                   <option name="values">
                                     <map>
+                                      <entry key="backgroundLayerName" value="ic_person_background" />
                                       <entry key="foregroundAssetType" value="CLIP_ART" />
-                                      <entry key="foregroundLayerName" value="ic_ic_person_background" />
-                                      <entry key="outputName" value="ic_person" />
+                                      <entry key="foregroundLayerName" value="ic_localizacion_background" />
+                                      <entry key="outputName" value="ic_localizacion" />
                                       <entry key="showGrid" value="true" />
                                     </map>
                                   </option>

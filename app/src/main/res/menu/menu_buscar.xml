@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item android:title="Marcadores Ir a">
+        <menu>
+            <item
+                android:id="@+id/nav_caucasia"
+                android:icon="@mipmap/ic_localizacion"
+                android:title="Caucasia" />
+            <item
+                android:id="@+id/nav_medellin"
+                android:icon="@mipmap/ic_localizacion"
+                android:title="Medellin" />
+            <item
+                android:id="@+id/nav_house"
+                android:icon="@mipmap/ic_localizacion"
+                android:title="Aquí Estoy" />
+            <item
+                android:id="@+id/nav_marcadores"
+                android:icon="@mipmap/ic_localizacion"
+                android:title="Todos los Marcadores" />
+        </menu>
+    </item>
 
 </menu>
